@@ -1,0 +1,14 @@
+#!/bin/bash
+FILE_ID=$1
+FILE_OUTPUT=$2
+FILE_DIR=$(dirname $FILE_OUTPUT)
+FILE=$(basename $FILE_OUTPUT)
+
+inotifywait -m -e CLOSE_WRITE $FILE_DIR | while read dir event file; do
+
+    if [[ $file == $FILE* ]]
+    then
+        echo "Updating file id $FILE_ID"
+        gdrive update $FILE_ID $FILE_OUTPUT
+    fi
+done

@@ -1,0 +1,5 @@
+#!/bin/bash
+FILE_ID=$1
+SAVE_DIR=$2
+echo "Download file id: $FILE_ID"
+gdrive download --path $SAVE_DIR --force $FILE_ID

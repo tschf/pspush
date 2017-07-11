@@ -4,6 +4,12 @@ FILE_OUTPUT=$2
 FILE_DIR=$(dirname $FILE_OUTPUT)
 FILE=$(basename $FILE_OUTPUT)
 
+# Monitoring the whole directory instead of the individual file because
+# the file I was testing with was being deleted between saves, so the
+# watch was getting removed since inotify is inode based and note file
+# name based.
+#
+# So, watch the directory and see if the event is on the particular file
 inotifywait -m -e CLOSE_WRITE $FILE_DIR | while read dir event file; do
 
     if [[ $file == $FILE* ]]

@@ -1,5 +1,19 @@
 #!/bin/bash
 FILE_ID=$1
 SAVE_DIR=$2
+
+# Just wait for the internet to come to life. This will ensure that when we try
+# to download the file from Google Drive, we have internet connectivity and will
+# have the latest file.
+
+# Solution adapted from
+# https://unix.stackexchange.com/questions/190513/shell-scripting-proper-way-to-check-for-internet-connectivity
+# nb: 8.8.8.8 is Google's public DNS
+while ! ping -q -c 1 -W 1 8.8.8.8 &>/dev/null; do
+    echo "Internet connectivity failed. Trying again in 5 secs" >&2;
+    sleep 5;
+done
+echo "Internet connectivity ready"
+
 echo "Download file id: $FILE_ID"
 gdrive download --path $SAVE_DIR --force $FILE_ID

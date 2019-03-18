@@ -17,7 +17,7 @@ echo "Internet connectivity ready"
 
 echo "Download file id: $FILE_ID"
 gdrive download --path $SAVE_DIR --force $FILE_ID
-#echo "test"
+
 if [[ "$?" != "0" ]]
 then
     notify-send -u critical "pspull" "Oops. Something went wrong attempting to pull a file from Google Drive."

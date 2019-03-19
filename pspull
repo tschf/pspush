@@ -16,7 +16,8 @@ done
 echo "Internet connectivity ready"
 
 echo "Download file id: $FILE_ID"
-gdrive download --path $SAVE_DIR --force $FILE_ID
+cd $SAVE_DIR
+drive pull -no-prompt -id $FILE_ID
 
 if [[ "$?" != "0" ]]
 then

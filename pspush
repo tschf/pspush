@@ -21,6 +21,8 @@ inotifywait -m -e CLOSE_WRITE $FILE_DIR | while read dir event file; do
         if [[ "$?" != "0" ]]
         then
             notify-send -u critical "pspush" "Oops. Something went wrong attempting to push a file to Google Drive."
+        else
+            notify-send -u low "pspush" "Successfully synced $FILE."
         fi
     fi
 done
